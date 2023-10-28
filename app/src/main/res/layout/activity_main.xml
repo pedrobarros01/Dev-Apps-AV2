@@ -41,7 +41,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextTextRA"
+            android:id="@+id/editTextRA"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginStart="12dp"
@@ -56,32 +56,25 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="32dp"
-            android:text="Senha"
+            android:text="Nome"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/editTextNome"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:ems="10"
-            android:hint="Digite sua senha"
-            android:inputType="textPassword" />
+            android:hint="Digite seu nome"
+            android:inputType="text|textPersonName" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="128dp"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnCadastrar"
-                android:layout_width="52dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cadastrar" />
 
             <Button
                 android:id="@+id/buttonEntrar"

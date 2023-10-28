@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "588082025068",
+    "firebase_url": "https://projeto-moviecima-default-rtdb.firebaseio.com",
+    "project_id": "projeto-moviecima",
+    "storage_bucket": "projeto-moviecima.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588082025068:android:b6897581f6a8166f503e49",
+        "android_client_info": {
+          "package_name": "com.example.moviecima"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWc2-zT00R_jnFbjci44-ksOUtesY1Sk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
