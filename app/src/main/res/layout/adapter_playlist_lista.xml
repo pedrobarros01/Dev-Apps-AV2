@@ -21,7 +21,7 @@
     <TextView
         android:id="@+id/txtCurtidas"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="33dp"
         android:text="O numero de curtidas é: "
         android:textAlignment="center" />
 

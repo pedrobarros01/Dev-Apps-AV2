@@ -3,6 +3,7 @@ package com.example.moviecima.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,12 +16,18 @@ import com.example.moviecima.R;
 import java.util.List;
 
 public class AdapterPlaylist extends RecyclerView.Adapter<AdapterPlaylist.MyViewHolder> {
-
-    public AdapterPlaylist(List<Playlist> listPlaylists) {
-        this.listPlaylists = listPlaylists;
+    public interface  RecycleViewListenerClass{
+        void onItemClicked(Playlist play);
     }
 
+    public AdapterPlaylist(List<Playlist> listPlaylists, RecycleViewListenerClass listener) {
+        this.listPlaylists = listPlaylists;
+        this.listener = listener;
+    }
+    private RecycleViewListenerClass  listener;
     private List<Playlist> listPlaylists;
+
+
 
 
     @NonNull
@@ -41,6 +48,12 @@ public class AdapterPlaylist extends RecyclerView.Adapter<AdapterPlaylist.MyView
             txtFilmes += filme + "\n";
         }
         holder.txtFilmes.setText(txtFilmes);
+        holder.btnCurtir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClicked(listPlaylists.get(position));
+            }
+        });
 
     }
 
@@ -52,12 +65,14 @@ public class AdapterPlaylist extends RecyclerView.Adapter<AdapterPlaylist.MyView
     public  class MyViewHolder extends  RecyclerView.ViewHolder{
 
         private TextView txtTitulo, txtFilmes, txtCurtidas;
+        private Button btnCurtir;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTitulo = itemView.findViewById(R.id.tituloPlaylist);
             txtFilmes = itemView.findViewById(R.id.textFilmes);
             txtCurtidas = itemView.findViewById(R.id.txtCurtidas);
+            btnCurtir = itemView.findViewById(R.id.buttonCurtida);
 
         }
     }

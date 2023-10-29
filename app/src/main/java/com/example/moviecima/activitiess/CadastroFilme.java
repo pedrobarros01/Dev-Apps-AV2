@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CadastroFilme extends AppCompatActivity {
-    EditText editTextNomeFilme, editTextAnoFilme, editTextUrlImagem;
+    EditText editTextNomeFilme, editTextAnoFilme;
     Button btnSalvar;
     ImageView imageViewFilme;
     private int curtida;
@@ -35,7 +35,7 @@ public class CadastroFilme extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_filme);
         editTextNomeFilme = findViewById(R.id.editTextNomeFilme);
         editTextAnoFilme = findViewById(R.id.editTextAnoFilme);
-        editTextUrlImagem = findViewById(R.id.editTextUrlImagem);
+
         btnSalvar = findViewById(R.id.btnSalvar);
         imageViewFilme = findViewById(R.id.imageViewFilme);
         Bundle dados = getIntent().getExtras();
@@ -43,26 +43,7 @@ public class CadastroFilme extends AppCompatActivity {
         DatabaseReference noPlaylists = reference.child("Playlists").child(idPlaylist);
         noPlaylists.child("ra").setValue(idPlaylist);
 
-        noPlaylists.addValueEventListener(new ValueEventListener() {
-            @Override
 
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                String curtidasAux = snapshot.child("curtidas").getValue().toString();
-                if(!curtidasAux.isEmpty()){
-                    curtida = Integer.parseInt(curtidasAux);
-                }else{
-                    curtida = 0;
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        noPlaylists.child("curtidas").setValue(curtida);
         DatabaseReference noFilmes= reference.child("Playlists").child(idPlaylist).child("filmes");
         List<Filme> filmes = new ArrayList<>();
         noFilmes.addValueEventListener(new ValueEventListener() {
@@ -86,25 +67,23 @@ public class CadastroFilme extends AppCompatActivity {
             public void onClick(View v) {
                 String nomeFilme = editTextNomeFilme.getText().toString();
                 String anoFilme = editTextAnoFilme.getText().toString();
-                String urlImagem = editTextUrlImagem.getText().toString();
+                String urlImagem = "";
                 if(filmes.size() < 4){
                     filmes.add(new Filme(nomeFilme, anoFilme));
                     noFilmes.setValue(filmes);
                     Toast.makeText(getApplicationContext(), "Gravado com sucesso", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getApplicationContext(), "Lista cheia", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                //Filme filme = new Filme(nomeFilme, anoFilme);
-
-
-                // Carregar e exibir a imagem do URL inserido
-                if (!urlImagem.isEmpty()) {
-                    //urlImagem = "https://img.elo7.com.br/product/original/264FCC6/big-poster-filme-batman-o-cavaleiro-das-trevas-lo02-90x60-cm-batman.jpg";
+                    urlImagem = "https://http.cat/images/202.jpg";
                     Picasso.get().load(urlImagem).into(imageViewFilme);
                     imageViewFilme.setVisibility(View.VISIBLE);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Lista cheia", Toast.LENGTH_SHORT).show();
+                    urlImagem = "https://http.cat/images/409.jpg";
+                    Picasso.get().load(urlImagem).into(imageViewFilme);
+                    imageViewFilme.setVisibility(View.VISIBLE);
+
                 }
+
+
             }
         });
     }

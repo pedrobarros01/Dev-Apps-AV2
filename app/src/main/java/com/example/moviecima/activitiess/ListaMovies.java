@@ -28,11 +28,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaMovies extends AppCompatActivity {
+public class ListaMovies extends AppCompatActivity implements AdapterPlaylist.RecycleViewListenerClass {
 
     private TextView txtBemvindo;
-    private Button btnCadastroFilme;
+    private Button btnCadastroFilme, btnDeletarFilme;
     private RecyclerView recPlaylist;
+    private int curtidaFilme;
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,16 @@ public class ListaMovies extends AppCompatActivity {
         txtBemvindo.setText("Bem vindo usuário: " + nome);
         recPlaylist = findViewById(R.id.listPlaylistRecView);
         btnCadastroFilme = findViewById(R.id.botaoCadastro);
+        btnDeletarFilme = findViewById(R.id.botaoDeletar);
 
+        btnDeletarFilme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DeletarFilme.class);
+                intent.putExtra("RA", ra);
+                startActivity(intent);
+            }
+        });
         btnCadastroFilme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +120,18 @@ public class ListaMovies extends AppCompatActivity {
         recPlaylist.setHasFixedSize(true);
 
 
-        AdapterPlaylist adapter = new AdapterPlaylist(listPlaylist);
+        AdapterPlaylist adapter = new AdapterPlaylist(listPlaylist, this);
         recPlaylist.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClicked(Playlist play) {
+        curtidaFilme = play.getCurtidas();
+        curtidaFilme++;
+        reference.child("Playlists")
+                .child(play.getRA())
+                .child("curtidas")
+                .setValue(curtidaFilme);
+        //CarregarPlayListFireBase();
     }
 }
